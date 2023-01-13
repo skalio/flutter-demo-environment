@@ -1,0 +1,13 @@
+#!/bin/bash 
+
+# This script allows for recursively replace strings in non-binary files
+
+if [[ $# -eq 0 ]] ; then
+    echo 'You need to pass three arguments: String to replace, replacement string, base directory to start searching'
+    exit 1
+fi
+
+OLD=$1
+NEW=$2
+DIR=$3
+grep -ilRI $OLD $DIR | xargs -I@ sed -i '' "s/$OLD/$NEW/g" @

@@ -42,6 +42,7 @@ If you want to build a macOS test app, just run
 `flutter build macos`
 
 You can notice that the Application file name is _EnvironmentDemoTest.app_
+This works for all other platforms as well!
 
 ## Building and running the app in production mode
 
@@ -54,7 +55,7 @@ Please take a look at **environment.dart** - it is fairly well documented.
 
 If you want to run your app using a production environment to this:
 
-`flutter run --dart-define=FLAVOR=production`
+`flutter run --dart-define=environment=production`
 
 You now have a client running that is still called _EnvironmentDemoTest_ but it no longer shows a test banner in the top left corner.
 If you click on the little plus, an api call to a sample production backend is done and the result is being displayed.
@@ -94,3 +95,11 @@ Here is a table that shows the replacements:
 | webcredentials:app.environmentdemo.dev | webcredentials:app.environmentdemo.com | web credentials |
 
 **If** you are on a branch that has been created for releasing a version of your app, then you may commit the changes introduced by this script. Make your your `main`/`master` branch stays on the test configuration.
+
+### Building a production release condidate
+
+Ib your branch where you have run `change2production.sh` you may now create a production binary by using the environment parameter:
+
+`flutter build macos --dart-define=environment=production`
+
+This works for all other platforms as well! The newly build binary can be uploaded to the app store. you only need to adapt the version number and the build number, where applicable.

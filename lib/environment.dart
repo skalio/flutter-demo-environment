@@ -1,22 +1,22 @@
 class Environment {
 
-  /// constant defining the test flavor. 
-  /// This is the string determining whether the build is a test build used in `--dart-define=FLAVOR=test`
-  static const String _TEST_FLAVOR = "test";
+  /// constant defining the test environment. 
+  /// This is the string determining whether the build is a test build used in `--dart-define=ENVIRONMENT=test`
+  static const String _TEST_ENVIRONMENT = "test";
 
-  /// the flavour as defined with `--dart-define=FLAVOR=xxx`
-  static const _FLAVOR = String.fromEnvironment(
-    'FLAVOR',
-    defaultValue: _TEST_FLAVOR,
+  /// the environment as defined with `--dart-define=ENVIRONMENT=xxx`
+  static const _ENVIRONMENT = String.fromEnvironment(
+    'environment',
+    defaultValue: _TEST_ENVIRONMENT,
   );
 
-  /// Getter for determining if the client runs on test flavour or not.
-  /// if it's not the test flavour the code assumes it's production flavor.
-  static bool get isTest => Environment._FLAVOR == Environment._TEST_FLAVOR;
+  /// Getter for determining if the client runs on test environment or not.
+  /// if it's not the test environment the code assumes it's production enviironment.
+  static bool get isTest => Environment._ENVIRONMENT == Environment._TEST_ENVIRONMENT;
 
   /// creating a map that uses the default (test) environment and overwrites it
-  /// with values from the production environment if we are not running in test flavor.
-  static late final Map<String, dynamic> _environmentConfig = Environment._FLAVOR == Environment._TEST_FLAVOR ? _test : {..._test, 
+  /// with values from the production environment if we are not running in test environment.
+  static late final Map<String, dynamic> _environmentConfig = Environment._ENVIRONMENT == Environment._TEST_ENVIRONMENT ? _test : {..._test, 
   ..._production};
 
   /// Hostname for the backend
@@ -25,7 +25,7 @@ class Environment {
   /// Hostname the static callback page which is used to (re-)open the client
   static late final String callbackHostname = _environmentConfig["CALLBACK_HOSTNAME"];
 
-  /// folder name of the subdirectory used for storing data locally when running in test flavour
+  /// folder name of the subdirectory used for storing data locally when running in test environment
   static late final String testSubDir = _environmentConfig["TEST_SUBDIR"];
 
   /// OIDC client ID for Sign In with Apple
@@ -65,7 +65,7 @@ class Environment {
   static const Map<String, dynamic> _production = {
     "BACKEND_HOSTNAME" : "www.boredapi.com/api/activity",
     "CALLBACK_HOSTNAME" : "forward.environmentdemo.com",
-    "TEST_SUBDIR" : "", // no subdir for production flavour
+    "TEST_SUBDIR" : "", // no subdir for production environment
     "OIDC_CLIENT_ID_APPLE" : "com.environmentdemo.app",
     "OIDC_CLIENT_ID_GOOGLE_FOR_IOS" : "28045425415-r7n6spi6vbc4sh1cpqmpsr1nov0egqug.apps.googleusercontent.com",
     "OIDC_CLIENT_ID_GOOGLE_FOR_NON_IOS" : "28045425415-d903vrftd6kt3fftj2bosqclac4ii0c2.apps.googleusercontent.com",
